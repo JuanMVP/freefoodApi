@@ -3,6 +3,7 @@ import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { create, index, show, update, destroy } from './controller'
 import { schema } from './model'
+import { password as passwordAuth, master, token } from '../../services/passport'
 export Recipe, { schema } from './model'
 
 const router = new Router()
@@ -72,6 +73,7 @@ router.put('/:id',
  * @apiError 404 Recipe not found.
  */
 router.delete('/:id',
+  master(),
   destroy)
 
 export default router

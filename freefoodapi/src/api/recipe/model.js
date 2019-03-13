@@ -42,13 +42,13 @@ recipeSchema.methods = {
   }
 }
 
-recipeSchema.pre('remove', {query:true}, function(next){
+/*recipeSchema.pre('remove', {query:true}, function(next){
   Photorecipe
     .find({recipeId: this.id})
     .exec((err, result) => {
       Promise.all(result.map(photorecipe => photorecipe.remove()))
     })
-})
+})*/
 
 const model = mongoose.model('Recipe', recipeSchema)
 
