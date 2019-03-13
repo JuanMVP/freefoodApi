@@ -73,7 +73,7 @@ router.put('/:id',
  * @apiError 404 Recipe not found.
  */
 router.delete('/:id',
-  master(),
+  
   destroy)
 
 export default router
