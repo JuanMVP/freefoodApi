@@ -50,7 +50,7 @@ restaurantSchema.methods = {
   }
 }
 
-restaurantSchema.pre('remove', {query:true}, function(next){
+/*restaurantSchema.pre('remove', {query:true}, function(next){
   Photo    
     .find({restaurantId: this.id})
     .exec((err, result) => {
@@ -58,7 +58,7 @@ restaurantSchema.pre('remove', {query:true}, function(next){
       next()
     }
     )
-})
+})*/
 
 restaurantSchema.index({loc: '2dsphere'})
 
