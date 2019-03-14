@@ -1,15 +1,30 @@
 import { success, notFound } from '../../services/response/'
 import { Photorecipe } from '.'
+import { Recipe } from '../recipe'
+import { User } from '../user'
 
 const uploadService = require('../../services/upload/')
+
 export const create = (req, res, next) => {
-// export const create = ({ bodymen: { body } }, res, next) => {
   uploadService.uploadFromBinary(req.file.buffer)
-    .then(json => Photo.create({
-      recipeId: req.body.recipeId,
+    .then(json => Photorecipe.create({
       imgurLink: json.data.link,
-      deletehash: json.data.deletehash
+      deleteHash: json.data.deletehash
     }))
+    .then(photo => {
+      return new Promise((resolve, reject) => {
+        Recipe.findByIdAndUpdate(
+          req.body.recipe_id,
+          { picture: photo.imgurLink },
+          (err, user) => {
+            if (err) {
+              return reject(err.me);
+            }
+            return resolve(photo);
+          }
+        );
+      });
+    })
     .then((photo) => photo.view(true))
     .then(success(res, 201))
     .catch(next)

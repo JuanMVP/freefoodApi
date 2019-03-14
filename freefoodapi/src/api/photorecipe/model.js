@@ -1,18 +1,11 @@
 import mongoose, { Schema } from 'mongoose'
 
 const photorecipeSchema = new Schema({
-  recipeId: {
-    type: Schema.ObjectId,
-    ref: 'Recipe'
-
-  },
+  
   deleteHash: {
     type: String
   },
   imgurLink: {
-    type: String
-  },
-  recipeId: {
     type: String
   }
 }, {

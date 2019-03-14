@@ -1,20 +1,13 @@
 import mongoose, { Schema } from 'mongoose'
 
 const photorestaurantSchema = new Schema({
-  restaurantId: {
-    type: Schema.ObjectId,
-    ref: 'Restaurant'
-
-  },
+  
 
 
   deleteHash: {
     type: String
   },
   imgurLink: {
-    type: String
-  },
-  restaurantId: {
     type: String
   }
 }, {

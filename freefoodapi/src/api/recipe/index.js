@@ -7,7 +7,7 @@ import { password as passwordAuth, master, token } from '../../services/passport
 export Recipe, { schema } from './model'
 
 const router = new Router()
-const { name, description, ingredients, dinnerGuest } = schema.tree
+const { name, description, ingredients, dinnerGuest, picture } = schema.tree
 
 /**
  * @api {post} /recipes Create recipe
@@ -22,7 +22,7 @@ const { name, description, ingredients, dinnerGuest } = schema.tree
  * @apiError 404 Recipe not found.
  */
 router.post('/',
-  body({ name, description, ingredients, dinnerGuest }),
+  body({ name, description, ingredients, dinnerGuest, picture }),
   create)
 
 /**
@@ -62,7 +62,7 @@ router.get('/:id',
  * @apiError 404 Recipe not found.
  */
 router.put('/:id',
-  body({ name, description, ingredients, dinnerGuest }),
+  body({ name, description, ingredients, dinnerGuest,picture }),
   update)
 
 /**

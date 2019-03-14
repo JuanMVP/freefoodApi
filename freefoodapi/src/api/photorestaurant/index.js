@@ -3,10 +3,16 @@ import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { create, index, show, update, destroy } from './controller'
 import { schema } from './model'
+import { master, token } from '../../services/passport'
+
 export Photorestaurant, { schema } from './model'
 
 const router = new Router()
 const { deleteHash, imgurLink, restaurantId } = schema.tree
+
+const multer = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 /**
  * @api {post} /photorestaurants Create photorestaurant
@@ -20,7 +26,9 @@ const { deleteHash, imgurLink, restaurantId } = schema.tree
  * @apiError 404 Photorestaurant not found.
  */
 router.post('/',
-  body({ deleteHash, imgurLink, restaurantId }),
+  //body({ deleteHash, imgurLink, restaurantId }),
+  token({ required: true }),
+  upload.single('photo'),
   create)
 
 /**
@@ -33,6 +41,7 @@ router.post('/',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
 router.get('/',
+  master(),
   query(),
   index)
 
@@ -45,6 +54,7 @@ router.get('/',
  * @apiError 404 Photorestaurant not found.
  */
 router.get('/:id',
+  master(),
   show)
 
 /**
@@ -59,7 +69,8 @@ router.get('/:id',
  * @apiError 404 Photorestaurant not found.
  */
 router.put('/:id',
-  body({ deleteHash, imgurLink, restaurantId }),
+  token({ required: true }),
+  body({ deleteHash, imgurLink }),
   update)
 
 /**
@@ -70,6 +81,7 @@ router.put('/:id',
  * @apiError 404 Photorestaurant not found.
  */
 router.delete('/:id',
+  token({ required: true }),
   destroy)
 
 export default router

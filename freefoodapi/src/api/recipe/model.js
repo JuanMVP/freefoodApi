@@ -12,6 +12,9 @@ const recipeSchema = new Schema({
   },
   dinnerGuest: {
     type: Number
+  },
+  picture: {
+    type: String
   }
 }, {
   strict: false,
@@ -31,6 +34,7 @@ recipeSchema.methods = {
       description: this.description,
       ingredients: this.ingredients,
       dinnerGuest: this.dinnerGuest,
+      picture: this.picture,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

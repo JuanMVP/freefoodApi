@@ -3,10 +3,15 @@ import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { create, index, show, update, destroy } from './controller'
 import { schema } from './model'
+import { master, token } from '../../services/passport'
 export Photorecipe, { schema } from './model'
 
 const router = new Router()
 const { deleteHash, imgurLink, recipeId } = schema.tree
+
+const multer = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 /**
  * @api {post} /photorecipes Create photorecipe
@@ -20,7 +25,9 @@ const { deleteHash, imgurLink, recipeId } = schema.tree
  * @apiError 404 Photorecipe not found.
  */
 router.post('/',
-  body({ deleteHash, imgurLink, recipeId }),
+  //body({ deleteHash, imgurLink, recipeId }),
+  token({ required: true }),
+  upload.single('photo'),
   create)
 
 /**
@@ -33,6 +40,7 @@ router.post('/',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
 router.get('/',
+  master(),
   query(),
   index)
 
@@ -45,6 +53,7 @@ router.get('/',
  * @apiError 404 Photorecipe not found.
  */
 router.get('/:id',
+  master(),
   show)
 
 /**
@@ -59,7 +68,8 @@ router.get('/:id',
  * @apiError 404 Photorecipe not found.
  */
 router.put('/:id',
-  body({ deleteHash, imgurLink, recipeId }),
+  token({ required: true }),
+  body({ deleteHash, imgurLink }),
   update)
 
 /**
@@ -70,6 +80,7 @@ router.put('/:id',
  * @apiError 404 Photorecipe not found.
  */
 router.delete('/:id',
+  token({ required: true }),
   destroy)
 
 export default router

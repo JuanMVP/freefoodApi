@@ -13,6 +13,10 @@ const restaurantSchema = new Schema({
   timetable: {
     type: String
   },
+  picture: {
+    type: String
+
+  },
   loc: {
     //type: String
     type: [Number],
