@@ -13,9 +13,9 @@ const recipeSchema = new Schema({
   dinnerGuest: {
     type: Number
   },
-  picture: {
+  /*picture: {
     type: String
-  }
+  }*/
 }, {
   strict: false,
   timestamps: true,
