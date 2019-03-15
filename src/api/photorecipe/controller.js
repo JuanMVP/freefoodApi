@@ -15,7 +15,7 @@ export const create = (req, res, next) => {
       return new Promise((resolve, reject) => {
         Recipe.findByIdAndUpdate(
           req.body.recipe_id,
-          { picture: photo.imgurLink },
+          { picture: photo.id },
           (err, user) => {
             if (err) {
               return reject(err.me);
