@@ -29,7 +29,6 @@ photorecipeSchema.methods = {
       id: this.id,
       deleteHash: this.deleteHash,
       imgurLink: this.imgurLink,
-      recipeId: this.recipeId,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

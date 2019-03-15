@@ -13,8 +13,13 @@ const recipeSchema = new Schema({
   dinnerGuest: {
     type: Number
   },
-  /*picture: {
-    type: String
+  picture: {
+    type: Schema.ObjectId,
+    ref: 'Photorecipe'
+  }
+  /*picture:{
+    type: Schema.ObjectId,
+    ref: 'Photorecipe'
   }*/
 }, {
   strict: false,
@@ -46,13 +51,6 @@ recipeSchema.methods = {
   }
 }
 
-/*recipeSchema.pre('remove', {query:true}, function(next){
-  Photorecipe
-    .find({recipeId: this.id})
-    .exec((err, result) => {
-      Promise.all(result.map(photorecipe => photorecipe.remove()))
-    })
-})*/
 
 const model = mongoose.model('Recipe', recipeSchema)
 

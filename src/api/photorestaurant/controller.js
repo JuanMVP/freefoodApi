@@ -15,7 +15,7 @@ export const create = (req, res, next) => {
       return new Promise((resolve, reject) => {
         Restaurant.findByIdAndUpdate(
           req.body.restaurant_id,
-          { $push: { photos: photo } },
+          { picture: photo.id },
           (err, user) => {
             if (err) {
               return reject(err.me);
