@@ -66,7 +66,6 @@ router.get('/:id',
  */
 router.post('/',
   master(),
-  token({ required: true }),
   body({ email, password, name, picture, role }),
   create)
 
