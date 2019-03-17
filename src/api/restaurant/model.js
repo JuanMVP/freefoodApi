@@ -8,7 +8,8 @@ const restaurantSchema = new Schema({
     type: String
   },
   intolerance: {
-    type: String
+    type: Schema.ObjectId,
+    ref: 'Intolerance'
   },
   timetable: {
     type: String

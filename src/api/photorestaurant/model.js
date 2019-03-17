@@ -31,7 +31,6 @@ photorestaurantSchema.methods = {
       id: this.id,
       deleteHash: this.deleteHash,
       imgurLink: this.imgurLink,
-      restaurantId: this.restaurantId,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

@@ -10,6 +10,8 @@ export const create = ({ bodymen: { body } }, res, next) =>
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Restaurant.count(query)
     .then(count => Restaurant.find(query, select, cursor)
+      .populate('intolerance')
+      .exec()
       .then((restaurants) => ({
         count,
         rows: restaurants.map((restaurant) => restaurant.view())
@@ -20,6 +22,8 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 
 export const show = ({ params }, res, next) =>
   Restaurant.findById(params.id)
+    .populate('intolerance')
+    .exec()
     .then(notFound(res))
     .then((restaurant) => restaurant ? restaurant.view() : null)
     .then(success(res))

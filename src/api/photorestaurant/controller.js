@@ -8,8 +8,8 @@ const uploadService = require('../../services/upload/')
 export const create = (req, res, next) => {
   uploadService.uploadFromBinary(req.file.buffer)
     .then(json => Photo.create({
-      imgur_link: json.data.link,
-      delete_hash: json.data.deletehash
+      imgurLink: json.data.link,
+      deleteHash: json.data.deletehash
     }))
     .then(photo => {
       return new Promise((resolve, reject) => {
