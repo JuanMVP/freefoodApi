@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
+
 const restaurantSchema = new Schema({
   name: {
     type: String
@@ -18,13 +19,13 @@ const restaurantSchema = new Schema({
     type: String
 
   },
-  loc: {
-    //type: String
-    type: [Number],
+  loc: [{
+     type: String
+    /*type: [Number],
     required: true,
     get: (v) => (v && v.length > 0) ? v.join() : null,
-    set: (v) => (S(v).isEmpty()) ? null : v.split(',').map(Number),
-  }
+    set: (v) => (S(v).isEmpty()) ? null : v.split(',').map(Number),*/
+  }]
 }, {
   strict: false,
   timestamps: true,
@@ -43,6 +44,7 @@ restaurantSchema.methods = {
       address: this.address,
       intolerance: this.intolerance,
       timetable: this.timetable,
+      picture: this.picture,
       loc: this.loc,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt

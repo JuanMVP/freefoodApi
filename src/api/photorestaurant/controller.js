@@ -7,7 +7,7 @@ const uploadService = require('../../services/upload/')
 
 export const create = (req, res, next) => {
   uploadService.uploadFromBinary(req.file.buffer)
-    .then(json => Photo.create({
+    .then(json => Photorestaurant.create({
       imgurLink: json.data.link,
       deleteHash: json.data.deletehash
     }))
