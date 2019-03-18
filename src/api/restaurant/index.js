@@ -1,12 +1,34 @@
 import { Router } from 'express'
 import { middleware as query } from 'querymen'
-import { middleware as body } from 'bodymen'
+import { middleware as body, Schema } from 'bodymen'
 import { create, index, show, update, destroy } from './controller'
 import { schema } from './model'
 export Restaurant, { schema } from './model'
 
 const router = new Router()
 const { name, address, intolerance, timetable, loc } = schema.tree
+
+const restaurantsSchema = new Schema({
+  name: {
+    type: RegExp,
+    paths: ['name']
+  },
+  address:{
+    type: RegExp,
+    paths: ['address']
+  },
+  intolerance:{
+    type: RegExp,
+    paths: ['intolerance']
+  },
+  timetable:{
+    type: RegExp,
+    paths: ['timetable']
+  },
+  near: {
+    paths: ['location']
+  }
+}, {near: true})
 
 /**
  * @api {post} /restaurants Create restaurant
@@ -35,7 +57,7 @@ router.post('/',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
 router.get('/',
-  query(),
+  query(restaurantsSchema),
   index)
 
 /**
