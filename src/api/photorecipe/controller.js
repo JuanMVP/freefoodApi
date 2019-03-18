@@ -29,7 +29,6 @@ export const create = (req, res, next) => {
     .then(success(res, 201))
     .catch(next)
 }
-
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Photorecipe.count(query)
     .then(count => Photorecipe.find(query, select, cursor)

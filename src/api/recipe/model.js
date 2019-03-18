@@ -13,7 +13,7 @@ const recipeSchema = new Schema({
   dinnerGuest: {
     type: Number
   },
-  pictures: {
+  picture: {
     type: String
   }
   /*picture:{

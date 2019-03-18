@@ -15,7 +15,7 @@ const restaurantSchema = new Schema({
   timetable: {
     type: String
   },
-  pictures: {
+  picture: {
     type: String
 
   },

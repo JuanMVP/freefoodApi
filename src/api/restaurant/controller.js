@@ -11,7 +11,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Restaurant.count(query)
     .then(count => Restaurant.find(query, select, cursor)
       .populate('intolerance', 'name')
-      .populate('pictures', 'restaurant_id')
       .exec()
       .then((restaurants) => ({
         count,
@@ -24,7 +23,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Restaurant.findById(params.id)
     .populate('intolerance', 'name')
-    .populate('pictures', 'restaurant_id')
     .exec()
     .then(notFound(res))
     .then((restaurant) => restaurant ? restaurant.view() : null)
@@ -62,8 +60,7 @@ export const userFavorites = ({ user, querymen: { query, select, cursor } }, res
   query['_id'] = { $in: user.favs }
   Property
     .find(query, select, cursor)
-    .populate('categoryId', 'name')
-    .populate('ownerId', 'name picture')
+    .populate('intolerance', 'name')
     .exec(function (err, properties) {
       Promise.all(properties.map(function (property) {
         return queryFirstPhoto(property)
