@@ -15,10 +15,10 @@ const restaurantSchema = new Schema({
   timetable: {
     type: String
   },
-  picture: {
-    type: String
-
-  },
+  pictures: [{
+    type: Schema.ObjectId,
+    ref: 'Photorestaurant'
+  }]
   /*loc: {
     type: [Number],
     required: true,
