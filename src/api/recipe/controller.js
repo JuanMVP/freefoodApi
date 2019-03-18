@@ -10,7 +10,7 @@ export const create = ({ bodymen: { body } }, res, next) =>
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Recipe.count(query)
     .then(count => Recipe.find(query, select, cursor)
-      .populate('picture')
+      .populate('pictures')
       .exec()
       .then((recipes) => ({
         count,
@@ -22,7 +22,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 
 export const show = ({ params }, res, next) =>
   Recipe.findById(params.id)
-    .populate('picture', 'recipe_id')
+    .populate('pictures', 'recipe_id')
     .exec()
     .then(notFound(res))
     .then((recipe) => recipe ? recipe.view() : null)
