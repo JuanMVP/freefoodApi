@@ -1,8 +1,9 @@
 import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body, Schema } from 'bodymen'
-import { create, index, show, update, destroy } from './controller'
+import { create, index, show, update, destroy, addFavorite, userFavorites, delFavorite } from './controller'
 import { schema } from './model'
+import { master, token } from '../../services/passport'
 export Restaurant, { schema } from './model'
 
 const router = new Router()
@@ -97,5 +98,54 @@ router.put('/:id',
  */
 router.delete('/:id',
   destroy)
+/**
+ * @api {post} /restaurants/fav/:id Add an restaurant as favorite
+ * @apiName AddRestaurantFav
+ * @apiGroup Restaurant
+ * @apiPermission user
+ * @apiParam {String} access_token user access token.
+ * @apiSuccess {Object} user Users's data.
+ * @apiError 401 user access only.
+ */
+router.post('/fav/:id',
+  token({ required: true}),
+  addFavorite)
+
+/**
+ * @api {get} /restaurants/fav Retrieve the favorites restaurants of a user
+ * @apiName RetrieveFavsRestaurants
+ * @apiGroup Restaurant
+ * @apiPermission user
+ * @apiParam {String} [name] Name of the restaurant (optional)
+ * @apiParam {String} [address] Address of the restaurant (optional)
+ * @apiParam {String} [intolerance] City of the restaurant (optional)
+ * @apiParam {String} [timetable] Category of the restaurant (optional)
+ * @apiParam {String} access_token user access token.
+ * @apiUse listParams
+ * @apiSuccess {Number} count Total amount of restaurants.
+ * @apiSuccess {Object[]} rows List of restaurants.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 401 user access only
+ */
+
+router.get('/fav',
+  token({ required: true}),
+  query(restaurantsSchema),
+  userFavorites)
+
+
+/**
+ * @api {delete} /restaurants/fav/:id Delete an restaurant as a favorite
+ * @apiName DeleteFavRestaurant
+ * @apiGroup Restaurant
+ * @apiPermission user
+ * @apiParam {String} access_token user access token.
+ * @apiSuccess (Success 204) 204 No Content.
+ * @apiError 401 user access only.
+ */
+
+router.delete('/fav/:id',
+  token({ required: true}),
+  delFavorite)
 
 export default router

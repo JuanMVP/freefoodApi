@@ -54,3 +54,23 @@ export const delFavorite = ({ user, params }, res, next) =>
   User.findByIdAndUpdate(user.id, { $pull: { favs: params.id } }, { new: true })
     .then(success(res, 200))
     .catch(next)
+
+
+export const userFavorites = ({ user, querymen: { query, select, cursor } }, res, next) => {
+  query['_id'] = { $in: user.favs }
+  Property
+    .find(query, select, cursor)
+    .populate('categoryId', 'name')
+    .populate('ownerId', 'name picture')
+    .exec(function (err, properties) {
+      Promise.all(properties.map(function (property) {
+        return queryFirstPhoto(property)
+      }))
+        .then((result) => ({
+          count: result.length,
+          rows: result
+        }))
+        .then(success(res))
+        .catch(next)
+    })
+}
