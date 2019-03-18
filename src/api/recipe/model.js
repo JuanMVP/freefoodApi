@@ -14,8 +14,7 @@ const recipeSchema = new Schema({
     type: Number
   },
   pictures: [{
-    type: Schema.ObjectId,
-    ref: 'Photorecipe'
+    type: String
   }]
   /*picture:{
     type: Schema.ObjectId,

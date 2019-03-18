@@ -16,9 +16,9 @@ const restaurantSchema = new Schema({
     type: String
   },
   pictures: [{
-    type: Schema.ObjectId,
-    ref: 'Photorestaurant'
-  }]
+    type: String
+
+  }],
   /*loc: {
     type: [Number],
     required: true,
