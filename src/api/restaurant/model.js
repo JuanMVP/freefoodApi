@@ -8,17 +8,17 @@ const restaurantSchema = new Schema({
   address: {
     type: String
   },
-  intolerance: {
+  intolerance: [{
     type: Schema.ObjectId,
     ref: 'Intolerance'
-  },
+  }],
   timetable: {
     type: String
   },
-  pictures: [{
+  pictures: {
     type: String
 
-  }],
+  },
   /*loc: {
     type: [Number],
     required: true,
