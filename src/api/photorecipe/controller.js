@@ -15,7 +15,7 @@ export const create = (req, res, next) => {
       return new Promise((resolve, reject) => {
         Recipe.findByIdAndUpdate(
           req.body.recipe_id,
-          { picture: photo.id },
+          { $push: { picture: photo.id } },
           (err, user) => {
             if (err) {
               return reject(err.me);
@@ -29,6 +29,7 @@ export const create = (req, res, next) => {
     .then(success(res, 201))
     .catch(next)
 }
+
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Photorecipe.count(query)
     .then(count => Photorecipe.find(query, select, cursor)
