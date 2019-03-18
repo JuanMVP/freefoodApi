@@ -43,3 +43,14 @@ export const destroy = ({ params }, res, next) =>
     .then((restaurant) => restaurant ? restaurant.remove() : null)
     .then(success(res, 204))
     .catch(next)
+
+
+export const addFavorite = ({ user, params }, res, next) =>
+  User.findByIdAndUpdate(user.id, { $addToSet: { favs: params.id } }, { new: true })
+    .then(success(res, 200))
+    .catch(next)
+
+export const delFavorite = ({ user, params }, res, next) =>
+  User.findByIdAndUpdate(user.id, { $pull: { favs: params.id } }, { new: true })
+    .then(success(res, 200))
+    .catch(next)
