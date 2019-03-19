@@ -8,6 +8,9 @@ export Restaurant, { schema } from './model'
 
 const router = new Router()
 const { name, address, intolerance, timetable, loc } = schema.tree
+const multer = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({storage: storage})
 
 const restaurantsSchema = new Schema({
   name: {
@@ -45,7 +48,8 @@ const restaurantsSchema = new Schema({
  * @apiError 404 Restaurant not found.
  */
 router.post('/',
-  body({ name, address, intolerance, timetable, loc }),
+  //body({ name, address, intolerance, timetable, loc }),
+  upload.single('photo'),
   create)
 
 /**

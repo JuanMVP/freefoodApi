@@ -3,7 +3,12 @@ import mongoose, { Schema } from 'mongoose'
 const intoleranceSchema = new Schema({
   name: {
     type: String
-  }
+  },
+
+  restaurants:[{
+    type: Schema.ObjectId,
+    ref: 'Restaurant'
+  }]
 }, {
   timestamps: true,
   toJSON: {
@@ -18,6 +23,7 @@ intoleranceSchema.methods = {
       // simple view
       id: this.id,
       name: this.name,
+      restaurants: this.restaurants,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

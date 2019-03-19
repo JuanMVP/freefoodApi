@@ -1,11 +1,43 @@
 import { success, notFound } from '../../services/response/'
 import { Restaurant } from '.'
+import { Intolerance} from '../intolerance'
 
-export const create = ({ bodymen: { body } }, res, next) =>
+/*export const create = ({ bodymen: { body } }, res, next) =>
   Restaurant.create(body)
     .then((restaurant) => restaurant.view(true))
     .then(success(res, 201))
-    .catch(next)
+    .catch(next)*/
+
+    const uploadService = require('../../services/upload/')
+
+
+export const create = (req, res, next) => {
+  let restaurantCreado;
+
+  uploadService.uploadFromBinary(req.file.buffer)
+    .then((json) =>
+      Restaurant.create({
+        name: req.body.name,
+        address: req.body.address,
+        intolerance: req.body.intolerance,
+        timetable: req.body.timetable,
+        picture: json.data.imgurLink
+      })
+    )
+    .then((restaurant) => {
+      restaurantCreado = restaurant;
+      return Intolerance.findByIdAndUpdate(restaurant.intolerance, { $push: { restaurants: restaurant } }).exec()
+
+    })
+    .then((intolerance) => restaurantCreado.view(true))
+    .then(success(res, 201))
+    .catch(err => {
+      console.log(err)
+      next(err)
+    })
+}
+
+
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Restaurant.count(query)
