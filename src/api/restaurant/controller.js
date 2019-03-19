@@ -21,7 +21,7 @@ export const create = (req, res, next) => {
         address: req.body.address,
         intolerance: req.body.intolerance,
         timetable: req.body.timetable,
-        picture: json.data.imgurLink
+        picture: json.data.link
       })
     )
     .then((restaurant) => {
@@ -43,7 +43,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Restaurant.count(query)
     .then(count => Restaurant.find(query, select, cursor)
       .populate('intolerance', 'name')
-      .populate('picture', 'imgurLink')
       .exec()
       .then((restaurants) => ({
         count,
@@ -56,7 +55,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Restaurant.findById(params.id)
     .populate('intolerance', 'name')
-    .populate('picture', 'imgurLink')
     .exec()
     .then(notFound(res))
     .then((restaurant) => restaurant ? restaurant.view() : null)

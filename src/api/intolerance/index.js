@@ -18,7 +18,7 @@ const { name } = schema.tree
  * @apiError 404 Intolerance not found.
  */
 router.post('/',
-  body({ name }),
+  body({ name}),
   create)
 
 /**

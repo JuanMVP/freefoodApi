@@ -8,9 +8,10 @@ export Restaurant, { schema } from './model'
 
 const router = new Router()
 const { name, address, intolerance, timetable, loc } = schema.tree
+
 const multer = require('multer')
 const storage = multer.memoryStorage()
-const upload = multer({storage: storage})
+const upload = multer({ storage: storage })
 
 const restaurantsSchema = new Schema({
   name: {
@@ -30,7 +31,7 @@ const restaurantsSchema = new Schema({
     paths: ['timetable']
   },
   near: {
-    paths: ['location']
+    paths: ['loc']
   }
 }, {near: true})
 
@@ -49,7 +50,7 @@ const restaurantsSchema = new Schema({
  */
 router.post('/',
   //body({ name, address, intolerance, timetable, loc }),
-  upload.single('photo'),
+  upload.single('picture'),
   create)
 
 /**
