@@ -63,6 +63,8 @@ router.post('/',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
 router.get('/',
+  token({ required: true}),
+
   query(restaurantsSchema),
   index)
 
@@ -91,6 +93,8 @@ router.get('/:id',
  * @apiError 404 Restaurant not found.
  */
 router.put('/:id',
+  token({ required: true}),
+
   body({ name, address, intolerance, timetable, loc }),
   update)
 
@@ -102,6 +106,8 @@ router.put('/:id',
  * @apiError 404 Restaurant not found.
  */
 router.delete('/:id',
+  token({ required: true}),
+
   destroy)
 /**
  * @api {post} /restaurants/fav/:id Add an restaurant as favorite

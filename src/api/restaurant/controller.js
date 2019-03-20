@@ -20,6 +20,7 @@ export const create = (req, res, next) => {
         name: req.body.name,
         address: req.body.address,
         intolerance: req.body.intolerance,
+        description: req.body.description,
         timetable: req.body.timetable,
         picture: json.data.link
       })

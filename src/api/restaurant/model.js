@@ -15,6 +15,10 @@ const restaurantSchema = new Schema({
   timetable: {
     type: String
   },
+  description:{
+    type:String
+
+  },
   picture: {
     type:String
 
@@ -43,6 +47,7 @@ restaurantSchema.methods = {
       address: this.address,
       intolerance: this.intolerance,
       timetable: this.timetable,
+      description: this.description,
       picture: this.picture,
       loc: this.loc,
       createdAt: this.createdAt,
