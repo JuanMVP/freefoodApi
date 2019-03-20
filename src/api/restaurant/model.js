@@ -25,9 +25,8 @@ const restaurantSchema = new Schema({
   },
   loc: {
     type: [Number],
-    required: true,
-    get: (v) => (v && v.length > 0) ? v.join() : null,
-    set: (v) => (S(v).isEmpty()) ? null : v.split(',').map(Number),
+    /*get: (v) => (v && v.length > 0) ? v.join() : null,
+    set: (v) => (S(v).isEmpty()) ? null : v.split(',').map(Number)*/
   }
 }, {
   strict: false,

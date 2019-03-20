@@ -22,7 +22,8 @@ export const create = (req, res, next) => {
         intolerance: req.body.intolerance,
         description: req.body.description,
         timetable: req.body.timetable,
-        picture: json.data.link
+        picture: json.data.link,
+        loc: req.body.loc
       })
     )
     .then((restaurant) => {
