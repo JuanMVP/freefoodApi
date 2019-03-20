@@ -23,12 +23,12 @@ const restaurantSchema = new Schema({
     type:String
 
   },
-  /*loc: {
+  loc: {
     type: [Number],
     required: true,
     get: (v) => (v && v.length > 0) ? v.join() : null,
     set: (v) => (S(v).isEmpty()) ? null : v.split(',').map(Number),
-  }*/
+  }
 }, {
   strict: false,
   timestamps: true,

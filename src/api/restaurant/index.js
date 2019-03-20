@@ -63,7 +63,7 @@ router.post('/',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  */
 router.get('/',
-  token({ required: true}),
+  
 
   query(restaurantsSchema),
   index)
