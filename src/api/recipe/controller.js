@@ -73,7 +73,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     query['_id'] = { $in: user.favs }
     Property
       .find(query, select, cursor)
-      .populate('intolerance', 'name')
       .exec(function (err, properties) {
         Promise.all(properties.map(function (property) {
           return queryFirstPhoto(property)
