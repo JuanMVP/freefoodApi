@@ -1,6 +1,8 @@
 import { success, notFound } from '../../services/response/'
 import { Restaurant } from '.'
 import { Intolerance} from '../intolerance'
+import { User } from '../user'
+
 
 /*export const create = ({ bodymen: { body } }, res, next) =>
   Restaurant.create(body)
@@ -80,30 +82,33 @@ export const destroy = ({ params }, res, next) =>
 
 
 export const addFavorite = ({ user, params }, res, next) =>
-  User.findByIdAndUpdate(user.id, { $addToSet: { favs: params.id } }, { new: true })
+  User.findByIdAndUpdate(user.id, { $addToSet: { restaurantsfavs: params.id } }, { new: true })
     .then(success(res, 200))
     .catch(next)
 
 export const delFavorite = ({ user, params }, res, next) =>
-  User.findByIdAndUpdate(user.id, { $pull: { favs: params.id } }, { new: true })
+  User.findByIdAndUpdate(user.id, { $pull: { restaurantsfavs: params.id } }, { new: true })
     .then(success(res, 200))
     .catch(next)
 
-
-export const userFavorites = ({ user, querymen: { query, select, cursor } }, res, next) => {
-  query['_id'] = { $in: user.favs }
-  Property
-    .find(query, select, cursor)
     .populate('intolerance', 'name')
-    .exec(function (err, properties) {
-      Promise.all(properties.map(function (property) {
-        return queryFirstPhoto(property)
-      }))
-        .then((result) => ({
-          count: result.length,
-          rows: result
-        }))
-        .then(success(res))
-        .catch(next)
-    })
-}
+
+    export const userFavorites = ({ user, querymen: { query, select, cursor } }, res, next) => {
+      query['_id'] = { $in: user.restaurantsfavs }
+      Restaurant
+          .find(query, select, cursor)
+          .populate('intolerance', 'name')
+          .then((result) => result.map((restaurant) => {
+              let favouriteRestaurant = JSON.parse(JSON.stringify(restaurant))
+              console.log(user.restaurantsfavs);
+              console.log('Id ' + restaurant.id)
+              favouriteRestaurant['isFav'] = user.restaurantsfavs.indexOf(restaurant.id) > -1
+              return favouriteRestaurant
+          }))
+          .then((result) => ({
+              count: result.length,
+              rows: result
+          }))
+          .then(success(res))
+          .catch(next)
+  }

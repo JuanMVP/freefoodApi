@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-
+const S = require('string');
 const restaurantSchema = new Schema({
   name: {
     type: String

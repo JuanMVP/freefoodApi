@@ -1,5 +1,6 @@
 import { success, notFound } from '../../services/response/'
 import { Recipe } from '.'
+import { User } from '../user'
 
 const uploadService = require('../../services/upload/')
 
@@ -21,6 +22,7 @@ export const create = (req, res, next) => {
         description: req.body.description,
         ingredients: req.body.ingredients,
         dinnerGuest: req.body.dinnerGuest,
+        loc: req.body.loc,
         picture: json.data.link
       })
       )}
@@ -59,29 +61,20 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 
 
   export const addFavorite = ({ user, params }, res, next) =>
-    User.findByIdAndUpdate(user.id, { $addToSet: { favs: params.id } }, { new: true })
+    User.findByIdAndUpdate(user.id, { $addToSet: { recipesfavs: params.id } }, { new: true })
       .then(success(res, 200))
       .catch(next)
 
   export const delFavorite = ({ user, params }, res, next) =>
-    User.findByIdAndUpdate(user.id, { $pull: { favs: params.id } }, { new: true })
+    User.findByIdAndUpdate(user.id, { $pull: { recipesfavs: params.id } }, { new: true })
       .then(success(res, 200))
       .catch(next)
 
 
   export const userFavorites = ({ user, querymen: { query, select, cursor } }, res, next) => {
-    query['_id'] = { $in: user.favs }
-    Property
+    query['_id'] = { $in: user.recipesfavs }
+    Recipe
       .find(query, select, cursor)
-      .exec(function (err, properties) {
-        Promise.all(properties.map(function (property) {
-          return queryFirstPhoto(property)
-        }))
-          .then((result) => ({
-            count: result.length,
-            rows: result
-          }))
-          .then(success(res))
-          .catch(next)
-      })
+      .then(success(res))
+      .catch(next)
   }
