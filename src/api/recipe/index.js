@@ -44,6 +44,28 @@ router.get('/',
   query(),
   index)
 
+  /**
+ * @api {get} /recipes/fav Retrieve the favorites recipes of a user
+ * @apiName RetrieveFavsRecipes
+ * @apiGroup Recipe
+ * @apiPermission user
+ * @apiParam {String} [name] Name of the recipes (optional)
+ * @apiParam {String} [description] Address of the recipes (optional)
+ * @apiParam {String} [ingredients] City of the recipes (optional)
+ * @apiParam {String} [dinnerGuest] Category of the recipes (optional)
+ * @apiParam {String} access_token user access token.
+ * @apiUse listParams
+ * @apiSuccess {Number} count Total amount of recipes.
+ * @apiSuccess {Object[]} rows List of recipes.
+ * @apiError {Object} 400 Some parameters may contain invalid values.
+ * @apiError 401 user access only
+ */
+
+router.get('/fav',
+token({ required: true}),
+query(),
+userFavorites)
+
 /**
  * @api {get} /recipes/:id Retrieve recipe
  * @apiName RetrieveRecipe
@@ -54,6 +76,8 @@ router.get('/',
  */
 router.get('/:id',
   show)
+
+  
 
 /**
  * @api {put} /recipes/:id Update recipe
@@ -96,27 +120,7 @@ router.delete('/:id',
   token({ required: true}),
   addFavorite)
 
-/**
- * @api {get} /recipes/fav Retrieve the favorites recipes of a user
- * @apiName RetrieveFavsRecipes
- * @apiGroup Recipe
- * @apiPermission user
- * @apiParam {String} [name] Name of the recipes (optional)
- * @apiParam {String} [description] Address of the recipes (optional)
- * @apiParam {String} [ingredients] City of the recipes (optional)
- * @apiParam {String} [dinnerGuest] Category of the recipes (optional)
- * @apiParam {String} access_token user access token.
- * @apiUse listParams
- * @apiSuccess {Number} count Total amount of recipes.
- * @apiSuccess {Object[]} rows List of recipes.
- * @apiError {Object} 400 Some parameters may contain invalid values.
- * @apiError 401 user access only
- */
 
-router.get('/fav',
-  token({ required: true}),
-  query(),
-  userFavorites)
 
 
 /**

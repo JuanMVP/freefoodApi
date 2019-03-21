@@ -93,22 +93,11 @@ export const delFavorite = ({ user, params }, res, next) =>
 
     .populate('intolerance', 'name')
 
-    export const userFavorites = ({ user, querymen: { query, select, cursor } }, res, next) => {
-      query['_id'] = { $in: user.restaurantsfavs }
-      Restaurant
-          .find(query, select, cursor)
-          .populate('intolerance', 'name')
-          .then((result) => result.map((restaurant) => {
-              let favouriteRestaurant = JSON.parse(JSON.stringify(restaurant))
-              console.log(user.restaurantsfavs);
-              console.log('Id ' + restaurant.id)
-              favouriteRestaurant['isFav'] = user.restaurantsfavs.indexOf(restaurant.id) > -1
-              return favouriteRestaurant
-          }))
-          .then((result) => ({
-              count: result.length,
-              rows: result
-          }))
-          .then(success(res))
-          .catch(next)
-  }
+export const userFavorites = ({ user, querymen: { query, select, cursor } }, res, next) => {
+  query['_id'] = { $in: user.restaurantsfavs }
+  Restaurant
+    .find(query, select, cursor)
+    .exec()
+    .then(success(res,200))
+    .catch(next)
+}

@@ -73,6 +73,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 
   export const userFavorites = ({ user, querymen: { query, select, cursor } }, res, next) => {
     query['_id'] = { $in: user.recipesfavs }
+    console.log(user.recipesfavs)
     Recipe
       .find(query, select, cursor)
       .then(success(res))
