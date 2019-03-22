@@ -62,8 +62,9 @@ router.get('/',
  */
 
 router.get('/fav',
-query(),
-userFavorites)
+  token({ required: true}),
+  query(),
+  userFavorites)
 
 /**
  * @api {get} /recipes/:id Retrieve recipe
