@@ -62,7 +62,6 @@ router.get('/',
  */
 
 router.get('/fav',
-token({ required: true}),
 query(),
 userFavorites)
 
@@ -92,7 +91,6 @@ router.get('/:id',
  * @apiError 404 Recipe not found.
  */
 router.put('/:id',
-  token({ required: true}),
   body({ name, description, ingredients, dinnerGuest,picture }),
   update)
 
@@ -104,7 +102,6 @@ router.put('/:id',
  * @apiError 404 Recipe not found.
  */
 router.delete('/:id',
-  token({ required: true}),
   destroy)
 
 /**
@@ -117,7 +114,6 @@ router.delete('/:id',
  * @apiError 401 user access only.
  */
   router.post('/fav/:id',
-  token({ required: true}),
   addFavorite)
 
 
@@ -134,7 +130,6 @@ router.delete('/:id',
  */
 
 router.delete('/fav/:id',
-  token({ required: true}),
   delFavorite)
 
   
