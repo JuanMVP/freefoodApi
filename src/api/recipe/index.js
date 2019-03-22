@@ -26,7 +26,7 @@ const upload = multer({ storage: storage })
  * @apiError 404 Recipe not found.
  */
 router.post('/',
-  token({ required: true}),
+  //token({ required: true}),
   upload.single('picture'),
   //body({ name, description, ingredients, dinnerGuest, picture }),
   create)
