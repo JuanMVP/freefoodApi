@@ -5,14 +5,14 @@ import { User } from '../user'
 const uploadService = require('../../services/upload/')
 
 
-export const create = ({ bodymen: { body } }, res, next) =>
+/*export const create = ({ bodymen: { body } }, res, next) =>
   Recipe.create(body)
     .then((recipe) => recipe.view(true))
     .then(success(res, 201))
-    .catch(next)
+    .catch(next)*/
 
 
-/*export const create = (req, res, next) => {
+export const create = (req, res, next) => {
   let recetaCreada;
 
   uploadService.uploadFromBinary(req.file.buffer)
@@ -25,7 +25,8 @@ export const create = ({ bodymen: { body } }, res, next) =>
 
         picture: json.data.link
       })
-      )}*/
+    )
+}
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Recipe.count(query)
     .then(count => Recipe.find(query, select, cursor)
