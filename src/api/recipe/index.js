@@ -27,8 +27,8 @@ const upload = multer({ storage: storage })
  */
 router.post('/',
   //token({ required: true}),
-  upload.single('picture'),
-  //body({ name, description, ingredients, dinnerGuest, picture }),
+  //upload.single('picture'),
+  body({ name, description, ingredients, dinnerGuest, picture }),
   create)
 
 /**
