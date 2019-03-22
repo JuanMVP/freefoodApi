@@ -22,7 +22,6 @@ export const create = (req, res, next) => {
         description: req.body.description,
         ingredients: req.body.ingredients,
         dinnerGuest: req.body.dinnerGuest,
-        loc: req.body.loc,
         picture: json.data.link
       })
       )}
