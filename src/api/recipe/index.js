@@ -62,7 +62,6 @@ router.get('/',
  */
 
 router.get('/fav',
-  token({ required: true}),
   query(),
   userFavorites)
 
